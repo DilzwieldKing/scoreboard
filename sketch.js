@@ -15,18 +15,17 @@ var subKey = 'sub-c-6e6ff138-1363-11e9-b4a6-026d6924b094';
 var channelName = "powerpoint";
 
 var questionStatus = false;
-
-var answerkey = [
-
-]
-
 var score = 0;
-
-var currentquestion = 0;
-
+var currentquestion = 1;
+var answerStatus = 1;
 var playerInput = [];
 
-var currentAnswer = 1;
+let answerKey = [
+    answerOne = 1,
+    answerTwo = 2,
+    answerThree = 3,
+    answerFour = 4,
+];
 
 function setup() 
 {
@@ -62,6 +61,7 @@ function draw()
   text(score, 400, 400)
   answerChecker();
   questiontrue();
+  answerChanger();
 
 
 }
@@ -74,11 +74,12 @@ function readIncoming(inMessage) //when new data comes in it triggers this funct
 }
 
 function questiontrue(){
-  for(i = 0; i < 1; i++){
+  //for(i = 0; i < 1; i++){
       if(questionStatus === true){
         score = score + 1;
+        answerStatus = answerStatus +1;
     }
-  }
+  //}
 }
 
 function keyTyped(){
@@ -98,17 +99,34 @@ function keyTyped(){
     playerInput = 4;
     console.log(playerInput);
   }
-}
-
-function mouseClicked(){
+  if(key === 'RIGHT_ARROW'){
     currentquestion = currentquestion + 1;
-    currentAnswer = 1;
+    answerStatus = answerStatus + 1;
+  }
 }
 
 function answerChecker(){
+    var currentAnswer = answerKey[0];
     for(var i = 0; i < 1; i++){
         if(playerInput == currentAnswer){
             questionStatus = true;
+        }else{
+            questionStatus = false;
         }
+    }
+}
+
+function answerChanger(){
+    if(answerStatus == 1){
+        currentAnswer = answerKey[0];
+    }
+    if(answerStatus == 2){
+        currentAnswer = answerKey[1];
+    }
+    if(answerStatus == 3){
+        currentAnswer = answerKey[2];
+    }
+    if(answerStatus == 4){
+        currentAnswer = answerKey[3];
     }
 }
